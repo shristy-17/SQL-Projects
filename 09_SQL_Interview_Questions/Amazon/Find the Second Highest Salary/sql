@@ -1,0 +1,43 @@
+/*
+============================================================
+Question 1: Find the Second Highest Salary
+Difficulty: Medium
+Category: Company Interview Practice - Amazon Style
+
+Problem Statement:
+Write an SQL query to find the employee(s) with the second highest salary.
+
+Table: employees
+
+Columns:
+- emp_id
+- emp_name
+- department
+- salary
+
+Expected Output:
+Display employee ID, employee name, and salary of the employee(s)
+earning the second highest salary.
+============================================================
+*/
+
+SELECT
+    emp_id,
+    emp_name,
+    salary
+FROM employees
+WHERE salary =
+(
+    SELECT MAX(salary)
+    FROM employees
+    WHERE salary <
+    (
+        SELECT MAX(salary)
+        FROM employees
+    )
+);
+
+-- Explanation:
+-- First subquery finds the highest salary.
+-- Second subquery finds the maximum salary less than the highest.
+-- The outer query returns employee(s) with that salary.
